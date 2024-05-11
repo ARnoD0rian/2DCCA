@@ -29,6 +29,7 @@ class Correlatin:
         
         # Вычисление корреляционной матрицы
         corr_matrix = cov_matrix / np.outer(std_matrix, std_matrix)
+        print(corr_matrix)
         
         # Получение коэффициента корреляции из корреляционной матрицы
         correlation_coefficient = corr_matrix[0, 1]

@@ -128,21 +128,20 @@ class GUI(tk.Tk):
             # Загрузка ссылок на изображения для тестирования
             links_test = Images.get_links_for_gui(self.directories["test"])
             # Выбор изображений для тестирования в зависимости от выбора пользователя
-            matrix = Images.get_pictures(links_train[0]) if isX else Images.get_pictures(links_train[1])
+            matrix = Images.get_pictures(links_test[0]) if isX else Images.get_pictures(links_test[1])
             
             # Предсказание результатов на основе тестового набора
             result = self.algo.predict(matrix, isX=isX)
             
             # Обработка и вывод результатов предсказания
             for index, answer in enumerate(result):
-                print(index, answer)
                 # Определение ссылок на изображения для добавления в таблицу
-                if not isX:
+                if isX:
                     termal_link = links_test[0][answer[0]]
-                    visible_link = links_test[0][index]
+                    visible_link = links_test[1][index]
                 else:
                     termal_link = links_test[0][index]
-                    visible_link = links_test[0][answer[0]]
+                    visible_link = links_test[1][answer[0]]
                 # Добавление строки в таблицу с результатами
-                self.add_row(f"{termal_link.split('/')[-2]}/{termal_link.split('/')[-1]}", f"{visible_link.split('/')[-2]}/{visible_link.split('/')[-1]}")
+                self.add_row(f"{termal_link}", f"{visible_link}")
     

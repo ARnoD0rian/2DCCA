@@ -17,15 +17,12 @@ if __name__ == "__main__":
     X = Images.get_pictures(links_x)
     Y = Images.get_pictures(links_y)
     algo.fit(X, Y, withRRPP=True)
-    print(f"2DCCA:{np.round(Correlatin.cov_set(algo.U, algo.V), 5)}")
-    
-    links_x, links_y = Images.get_links(num_test=1)
-    algo = Algo2DPLS(distantion=distantion, isMax=isMax, d=D)
-    X = Images.get_pictures(links_x)
-    Y = Images.get_pictures(links_y)
-    
-    algo.fit(X, Y, withRRPP=True)
-    print(f"2DPLS:{np.round(Correlatin.cov_set(algo.U, algo.V), 5)}")
+    U = [Correlatin.cov_element(u) for u in algo.U]
+    # V = [Correlatin.cov_element(v) for v in algo.V]
+    V = [Correlatin.cov(u, v) for u, v in zip(algo.U, algo.V)]
+    plt.scatter(U, V)
+    print(U)
+    plt.show()
     
     
     
